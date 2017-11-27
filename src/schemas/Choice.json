@@ -1,0 +1,17 @@
+{
+    "description": "A choice to a given situation",
+    "type": "object",
+    "properties": {
+        "textId": { "type": "string" },
+        "displayCondition": {
+            "type": "string",
+            "pattern": "^[=><]$"
+        },
+        "outcomes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": { "type": "object" }
+        }
+    },
+    "required": ["textId", "outcomes"]
+}
