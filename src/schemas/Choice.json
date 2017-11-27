@@ -5,7 +5,7 @@
         "textId": { "type": "string" },
         "displayCondition": {
             "type": "string",
-            "pattern": "^[=><]$"
+            "pattern": "\\b[>=<]\\b"
         },
         "outcomes": {
             "type": "array",
