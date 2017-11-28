@@ -1,0 +1,10 @@
+{
+    "$id": "ChoiceOutcome.json",
+    "description": "Possible outcomes of a choice",
+    "type": "object",
+    "properties": {
+        "nextId": { "type": "string" },
+        "notifySelection": { "type": "boolean" }
+    },
+    "required": ["nextId"]
+}

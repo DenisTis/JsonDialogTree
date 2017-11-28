@@ -1,8 +1,11 @@
 {
+    "$id": "Choice.json",
     "description": "A choice to a given situation",
     "type": "object",
     "properties": {
-        "textId": { "type": "string" },
+        "textId": {
+            "type": "string"
+        },
         "displayCondition": {
             "type": "string",
             "pattern": "\\b[>=<]\\b"
@@ -10,7 +13,9 @@
         "outcomes": {
             "type": "array",
             "uniqueItems": true,
-            "items": { "type": "object" }
+            "items": {
+                "$ref": "ChoiceOutcome.json#"
+            }
         }
     },
     "required": ["textId", "outcomes"]
