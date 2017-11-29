@@ -1,31 +1,29 @@
-import { validateChoiceObject } from './src/SchemaValidator';
+'use strict';
 
-export { validateChoiceObject }
-from './src/SchemaValidator.js';
+// Import React base modules
+import React from 'react';
+import ReactDom from 'react-dom';
+import { Switch, BrowserRouter, Route } from 'react-router-dom';
 
-validateChoiceObject();
-// const AJV = require('ajv');
-// var ajv = new AJV(); // options can be passed, e.g. {allErrors: true}
+import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
-// //First test with own schema:
-// //Consider if using IDs in schema will solve this problem of additional uploading
-// const choiceSchema = require('./src/schemas/Choice.json');
-// const choiceOutcomeSchema = require('./src/schemas/ChoiceOutcome.json');
-// ajv.addSchema(choiceOutcomeSchema);
-// //ajv.addSchema(choiceOutcomeSchema, "ChoiceOutcome.json");
-// var validate = ajv.compile(choiceSchema);
+//Views
+// import Home from './components/Home.jsx';
+// import Menu from './components/Menu.jsx';
 
-// let choiceObject = { textId: "abc", outcomes: [{ nextId: "something" }], displayCondition: "a>x" };
-// test(choiceObject, "Choice object");
+ReactDom.render((
+  <BrowserRouter>
+    <Switch>
+      {/* <Route exact path="/" component={Home} />
+      <Route path="/menu" component={Menu}/>
+      <Route path="*" component={NotFound} /> */}
+    </Switch>
+  </BrowserRouter>
+  // Here is how query can be hidden: https://stackoverflow.com/questions/42089626/how-to-hide-query-string-parameter-in-reactjs-react-router
+  // Check this code in Navigation object it if will be possible to hide final url
+  //   .makePath('about') // return URL
+  //   .makeHref('about') // return URL
 
-// function test(data, name) {
-//     var valid = validate(data);
-//     if (!name) {
-//         if (valid) console.log('Valid!');
-//         else console.log('Invalid: ' + ajv.errorsText(validate.errors));
-//         return;
-//     }
-//     if (valid) console.log(name + ' Valid!');
-//     else console.log(name + ' Invalid: ' + ajv.errorsText(validate.errors));
-
-// }
+),
+  document.getElementById('root')
+);

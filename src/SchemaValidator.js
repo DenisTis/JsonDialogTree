@@ -13,10 +13,22 @@ ajv.addSchema(choiceSchema);
 ajv.addSchema(choiceOutcomeSchema);
 
 export function validateChoiceObject() {
-    let validate = ajv.compile(choiceSchema);
-    let choiceObject = { textId: "abc", outcomes: [{ nextId: "something" }], displayCondition: "a>x" };
-    let valid = validate(choiceObject);
-    if (valid) console.log('Valid!');
-    else console.log('Invalid: ' + ajv.errorsText(validate.errors));
-    return;
+  let validate = ajv.compile(choiceSchema);
+  let choiceObject = { textId: "abc", outcomes: [{ nextId: "something" }], displayCondition: "a>x" };
+  let valid = validate(choiceObject);
+  if (valid) console.log('Valid!');
+  else console.log('Invalid: ' + ajv.errorsText(validate.errors));
+  return;
+}
+
+export function validateObject(object, schemaName) {
+  let validationSchema = ajv.getSchema(schemaName);
+  if (validationSchema) {
+    let validate = ajv.compile(validationSchema);
+    if (validate(object)) {
+      console.log('Valid!');
+      return;
+    }
+    console.log('Invalid: ' + ajv.errorsText(validate.errors));
+  }
 }
