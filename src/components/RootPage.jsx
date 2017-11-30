@@ -16,7 +16,7 @@ export default class RootPage extends React.Component {
 
   render() {
     return (
-       <div class="container">
+       <div id="container">
        <h1>Projects</h1>
         {/* <div class="btn-toolbar toolbarTopRight" aria-label="Language selection" onClick={this.changeLanguage}> </div> */}
       </div >
