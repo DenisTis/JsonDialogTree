@@ -8,12 +8,13 @@ import { Switch, BrowserRouter, Route } from 'react-router-dom';
 import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 //Views
-// import Home from './components/Home.jsx';
+ import Root from './src/components/RootPage.jsx';
 // import Menu from './components/Menu.jsx';
 
 ReactDom.render((
   <BrowserRouter>
     <Switch>
+      <Route exact path="/" component={Root} />
       {/* <Route exact path="/" component={Home} />
       <Route path="/menu" component={Menu}/>
       <Route path="*" component={NotFound} /> */}
