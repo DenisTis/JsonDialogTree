@@ -9,16 +9,22 @@ import Bootstrap from 'bootstrap/dist/css/bootstrap.css';
 
 //Views
  import Root from './src/components/RootPage.jsx';
-// import Menu from './components/Menu.jsx';
+ import SingleProject from './src/components/SingleProjectPage.jsx';
+ import NavigationBar from './src/components/NavigationBar.jsx';
 
 ReactDom.render((
   <BrowserRouter>
-    <Switch>
+        <div>
+          <Route exact path="/" component={Root} />
+          <Route path="/project" component={SingleProject} />
+          {/* <Route path="/catalog" component={CatalogView} />
+          <Route path="/product/:id" component={ProductView} /> */}
+          <Route path="/nested" component={NavigationBar} />
+        </div>
+    {/* <Switch>
       <Route exact path="/" component={Root} />
-      {/* <Route exact path="/" component={Home} />
-      <Route path="/menu" component={Menu}/>
-      <Route path="*" component={NotFound} /> */}
-    </Switch>
+      <Route path="/project" component={SingleProject}/>
+    </Switch> */}
   </BrowserRouter>
   // Here is how query can be hidden: https://stackoverflow.com/questions/42089626/how-to-hide-query-string-parameter-in-reactjs-react-router
   // Check this code in Navigation object it if will be possible to hide final url
