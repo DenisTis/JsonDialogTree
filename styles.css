@@ -1,13 +1,17 @@
-.container {
+/* .container {
   width: 100%;
   height: 100%;
-  /* padding: 0 0 100 0;
-  margin-top: 30;
-  text-align: center; */
+} */
+
+.rootHeader{
+  margin-left: 1em;
+  margin-bottom: 1em;
 }
 .projectHeader {
-  margin-top: 1em;
+  font-size: 120%;
+  margin-top: 2em;
   margin-left: 1em;
+  margin-bottom: 2em;
 }
 .projectHeader span {
   margin-left: 1em;
@@ -19,14 +23,28 @@
   margin-left: 1em;
 }
 
+.row{
+  margin-left: 1em;
+}
+
 .dialogsList {
   width: 30%;
+  margin-left: 1em;
 }
 
 .dialogItemListAddButton{
   float: right;
+  margin-right: 1em;
+  margin-top: 1.5em;
 }
 .deleteButton {
   color: red;
   float: right;
+}
+/* Buttons in the lists: */
+.glyphicon-check {
+  margin-right: 2em;
+}
+.glyphicon-unchecked {
+  margin-right: 2em;
 }

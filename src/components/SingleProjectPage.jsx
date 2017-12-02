@@ -31,7 +31,7 @@ export default class SingleProjectPage extends React.Component {
 
   render() {
     return (
-      <div id="container">
+      <div>
         <div>
           <Root />
         </div>
@@ -45,7 +45,7 @@ export default class SingleProjectPage extends React.Component {
           {!this.state.editMode &&
             <span className="">{this.state.projectName}</span>
           }
-          <span className={"glyphicon glyphicon-pencil"} onClick={this.changeMode.bind(this)}></span>
+          <span id="editProjectName" className={"glyphicon glyphicon-edit"} onClick={this.changeMode.bind(this)}></span>
         </div >
         <div>
           <DialogsList />
