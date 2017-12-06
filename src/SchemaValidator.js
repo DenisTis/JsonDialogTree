@@ -1,16 +1,17 @@
 const AJV = require('ajv');
 var ajv = new AJV(); // options can be passed, e.g. {allErrors: true}
 
+const dialogsSchema = require('./schemas/Dialogs.json');
 const dialogSchema = require('./schemas/Dialog.json');
-const dialogItemSchema = require('./schemas/DialogItem.json');
-const participantItemSchema = require('./schemas/ParticipantItem.json');
+const messageSchema = require('./schemas/Message.json');
 const choiceSchema = require('./schemas/Choice.json');
-const choiceOutcomeSchema = require('./schemas/ChoiceOutcome.json');
+const evaluationSchema = require('./schemas/Evaluation.json');
 
-ajv.addSchema(dialogItemSchema);
-ajv.addSchema(participantItemSchema);
+ajv.addSchema(dialogsSchema);
+ajv.addSchema(dialogSchema);
+ajv.addSchema(messageSchema);
 ajv.addSchema(choiceSchema);
-ajv.addSchema(choiceOutcomeSchema);
+ajv.addSchema(evaluationSchema);
 
 export function validateChoiceObject() {
   let validate = ajv.compile(choiceSchema);

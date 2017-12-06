@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 
 import '../../styles.css';
 
+import MessageList from './MessageList.jsx';
+import ChoiceList from './ChoiceList.jsx';
+import EvaluationList from './EvaluationList.jsx';
 import DialogContext from '../DialogContext.js';
 let dialogContext = new DialogContext();
 
@@ -11,10 +14,17 @@ let dialogContext = new DialogContext();
 //list will contain icon (status finished or not finished)
 //check performed - 1st item does not have to be mapped,
 // all others have to be linked to other items (unless have flag "final item")
+//TODO - try to rewrite code considering this example:
+//https://gitlab.com/tyler.johnson/react-items-list/blob/master/components/list.js
 export default class DialogsList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { items: dialogContext.getItems() };
+    this.state = {
+      items: dialogContext.getItems(),
+      messages: "Test message",
+      choices: "Test choices",
+      evaluations: "test evaluations"
+    };
     this.deleteItem = this.deleteItem.bind(this);
     this.addItem.bind(this);
   }
@@ -35,6 +45,7 @@ export default class DialogsList extends React.Component {
   }
 
   changeItemMode(itemKey) {
+    dialogContext.setSelectedItem(itemKey);
     dialogContext.changeItemMode(itemKey);
     this.setState({ items: dialogContext.getItems() });
   }
@@ -49,6 +60,7 @@ export default class DialogsList extends React.Component {
   render() {
     return (
       <div className="row">
+        {/* left side of the screen */}
         <div className="col-sm-4">
           <div className="row">
             <div className="col-sm-8">
@@ -64,34 +76,39 @@ export default class DialogsList extends React.Component {
             setSelectedItem={this.setSelectedItem.bind(this)}
             changeItemMode={this.changeItemMode.bind(this)}
             deleteItem={this.deleteItem.bind(this)} />
-      </div>
+        </div>
+        {/* middle side of screen */}
+        <div className="col-sm-4">
+        <MessageList dialogContext={dialogContext} messages={this.state.messages} />
+        <br></br>
+        <ChoiceList choices={this.state.choices} />
+        </div>
+        <div className="col-sm-4">
+        <EvaluationList dialogContext={dialogContext} evaluations={this.state.evaluations} />
+        </div>
+        
       </div>
     );
   }
 }
 
 function NumberList(props) {
-  const items = props.items;
-  const setSelectedItem = props.setSelectedItem;
-  const changeItemMode = props.changeItemMode;
-  const updateItem = props.updateItem;
-  const deleteFunction = props.deleteItem;
   const listItems = [];
-    for (let item of items) {
+  for (let item of props.items) {
     listItems.push(
       <li className="list-group-item" key={item.key}>
-        <span className={item.isSelected ? "glyphicon glyphicon-check": "glyphicon glyphicon-unchecked"} onClick={() => setSelectedItem(item.key)}> </span>
+        <span className={item.isSelected ? "glyphicon glyphicon-check" : "glyphicon glyphicon-unchecked"} onClick={() => props.setSelectedItem(item.key)}> </span>
         {
           item.isEdit &&
           <input type="text" name="name" defaultValue={item.content}
-            onKeyPress={updateItem.bind(this, item.key)} />
+            onKeyPress={props.updateItem.bind(this, item.key)} />
         }
         {!item.isEdit &&
-          <span onClick={() => changeItemMode(item.key)} >
+          <span onClick={() => props.changeItemMode(item.key)} >
             {item.content}
           </span>
         }
-        <span className={"glyphicon glyphicon-minus deleteButton"} onClick={() => deleteFunction(item.key)}> </span>
+        <span className={"glyphicon glyphicon-minus deleteButton"} onClick={() => props.deleteItem(item.key)}> </span>
       </li>
     );
   };

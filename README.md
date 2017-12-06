@@ -21,5 +21,6 @@ Objects to be passed to dialog:
 - Character properties (optional)
 Events: 
 - achievement
-- 
 
+Implement save to local storage and load from local storage
+Rework css classes

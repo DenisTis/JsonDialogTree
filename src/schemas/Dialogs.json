@@ -1,0 +1,9 @@
+{
+    "$id": "Dialogs.json",
+    "description": "Array of all dialog items",
+    "type": "array",
+    "uniqueItems": true,
+    "items": {
+        "$ref": "Dialog.json#"
+    }
+}

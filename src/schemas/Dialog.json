@@ -1,9 +1,26 @@
 {
     "$id": "Dialog.json",
-    "description": "Array of all dialog items",
-    "type": "array",
-    "uniqueItems": true,
-    "items": {
-        "$ref": "DialogItem.json#"
-    }
+    "description": "Single dialog entry",
+    "type": "object",
+    "properties": {
+        "id": { "type": "string" },
+        "introduction": {
+            "type": "string"
+        },
+        "messages": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "Message.json#"
+            }
+        },
+        "choices": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "$ref": "Choice.json#"
+            }
+        }
+    },
+    "required": ["entryId", "choices"]
 }

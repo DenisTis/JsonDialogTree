@@ -10,13 +10,13 @@
             "type": "string",
             "pattern": "\\b[>=<]\\b"
         },
-        "outcomes": {
+        "evaluations": {
             "type": "array",
             "uniqueItems": true,
             "items": {
-                "$ref": "ChoiceOutcome.json#"
+                "$ref": "Evaluation.json#"
             }
         }
     },
-    "required": ["textId", "outcomes"]
+    "required": ["textId", "evaluations"]
 }

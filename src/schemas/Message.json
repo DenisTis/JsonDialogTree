@@ -1,0 +1,14 @@
+{
+    "$id": "Message.json",
+    "description": "Message/ description text in the dialog",
+    "type": "object",
+    "properties": {
+        "character": {
+            "type": "string"
+        },
+        "text": {
+            "type": "string"
+        }
+    },
+    "required": ["text"]
+}
