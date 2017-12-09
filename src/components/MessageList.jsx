@@ -15,7 +15,7 @@ export default class MessageList extends React.Component {
 
   static get propTypes() {
     return {
-      dialogContext: PropTypes.Object,
+      dialogContext: PropTypes.object,
       items: PropTypes.array
     };
   }

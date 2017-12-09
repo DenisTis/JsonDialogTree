@@ -1,13 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 import "../../styles.css";
 
 import MessageList from "./MessageList.jsx";
 import ChoiceList from "./ChoiceList.jsx";
 import EvaluationList from "./EvaluationList.jsx";
 import DialogContext from "../DialogContext.js";
-let dialogContext = new DialogContext();
+import Dialogs from "./Dialogs.jsx";
 
 //It should return list with add and delete buttons
 //edit would be called by clicking on list item
@@ -19,42 +17,23 @@ let dialogContext = new DialogContext();
 export default class DialogsList extends React.Component {
   constructor(props) {
     super(props);
+    this.dialogContext = new DialogContext();
     this.state = {
-      items: dialogContext.getItems(),
+      items: this.dialogContext.getItems(),
       messages: "Test message",
       choices: "Test choices",
       evaluations: "test evaluations"
     };
-    this.deleteItem = this.deleteItem.bind(this);
     this.addItem.bind(this);
   }
 
-  deleteItem(itemKey) {
-    dialogContext.deleteItem(itemKey);
-    this.setState({ items: dialogContext.getItems() });
-  }
-
   addItem() {
-    dialogContext.addItem("New item");
-    this.setState({ items: dialogContext.getItems() });
+    this.dialogContext.addItem("New item");
+    this.setState({ items: this.dialogContext.getItems() });
   }
 
-  setSelectedItem(itemKey) {
-    dialogContext.setSelectedItem(itemKey);
-    this.setState({ items: dialogContext.getItems() });
-  }
-
-  changeItemMode(itemKey) {
-    dialogContext.setSelectedItem(itemKey);
-    dialogContext.changeItemMode(itemKey);
-    this.setState({ items: dialogContext.getItems() });
-  }
-
-  updateItem(itemKey, event) {
-    if (event.key === "Enter") {
-      dialogContext.updateItem(itemKey, event.target.value);
-      this.changeItemMode(itemKey);
-    }
+  updateStateItems(newItems) {
+    this.setState({ items: newItems });
   }
 
   render() {
@@ -71,48 +50,18 @@ export default class DialogsList extends React.Component {
             </div>
           </div>
           <br></br>
-          <NumberList items={this.state.items}
-            updateItem={this.updateItem.bind(this)}
-            setSelectedItem={this.setSelectedItem.bind(this)}
-            changeItemMode={this.changeItemMode.bind(this)}
-            deleteItem={this.deleteItem.bind(this)} />
+          <Dialogs items={this.state.items} dialogContext={this.dialogContext} updateStateItems={this.updateStateItems.bind(this)} />
         </div>
         {/* middle side of screen */}
         <div className="col-sm-4">
-          <MessageList dialogContext={dialogContext} messages={this.state.messages} />
+          <MessageList dialogContext={this.dialogContext} messages={this.state.messages} />
           <br></br>
           <ChoiceList choices={this.state.choices} />
         </div>
         <div className="col-sm-4">
-          <EvaluationList dialogContext={dialogContext} evaluations={this.state.evaluations} />
+          <EvaluationList dialogContext={this.dialogContext} evaluations={this.state.evaluations} />
         </div>
-        
       </div>
     );
   }
 }
-
-function NumberList(props) {
-  const listItems = [];
-  for (let item of props.items) {
-    listItems.push(
-      <li className="list-group-item" key={item.key}>
-        <span className={item.isSelected ? "glyphicon glyphicon-check" : "glyphicon glyphicon-unchecked"} onClick={() => props.setSelectedItem(item.key)}> </span>
-        {
-          item.isEdit &&
-          <input type="text" name="name" defaultValue={item.content}
-            onKeyPress={props.updateItem.bind(this, item.key)} />
-        }
-        {!item.isEdit &&
-          <span onClick={() => props.changeItemMode(item.key)} >
-            {item.content}
-          </span>
-        }
-        <span className={"glyphicon glyphicon-minus deleteButton"} onClick={() => props.deleteItem(item.key)}> </span>
-      </li>
-    );
-  }
-  return (
-    <ul className="list-group" >{listItems}</ul>
-  );
-}  
