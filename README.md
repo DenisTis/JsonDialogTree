@@ -24,3 +24,6 @@ Events:
 
 Implement save to local storage and load from local storage
 Rework css classes
+
+!! Check that context selectedKey is always updated
+!! Check that messages, choices and evaluations are only displayed if dialog item exists!

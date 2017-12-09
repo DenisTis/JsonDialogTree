@@ -39,7 +39,7 @@ export default class MessageList extends React.Component {
       <div>
         <div className="row">
           <div className="col-sm-8">
-            <h4>Messages List</h4>
+            <h4>Dialog Messages</h4>
           </div>
           <div className="col-sm-4">
             <span

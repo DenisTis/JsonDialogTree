@@ -1,16 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import "../../styles.css";
 import Root from "./RootPage.jsx";
 import DialogsList from "./DialogsList.jsx";
+import DialogContext from "../DialogContext.js";
 
 export default class SingleProjectPage extends React.Component {
   constructor(props) {
     super(props);
+    this.dialogContext = new DialogContext();
     this.state = {
       editMode: true,
-      projectName: "New project"
+      projectName: this.dialogContext.projectName,
+      dialogItems: this.dialogContext.getItems()
     };
   }
 
@@ -27,6 +29,11 @@ export default class SingleProjectPage extends React.Component {
 
   changeProjectName(event) {
     this.setState({ projectName: event.target.value });
+  }
+
+  loadProject() {
+    this.dialogContext.load();
+    this.setState({ dialogItems: this.dialogContext.getItems() });
   }
 
   render() {
@@ -46,9 +53,11 @@ export default class SingleProjectPage extends React.Component {
             <span className="">{this.state.projectName}</span>
           }
           <span id="editProjectName" className={"glyphicon glyphicon-edit"} onClick={this.changeMode.bind(this)}></span>
+          <span id="loadProject" className={"glyphicon glyphicon-open"} onClick={this.loadProject.bind(this)}></span>
+          <span id="saveProject" className={"	glyphicon glyphicon-save"} onClick={this.dialogContext.save.bind(this.dialogContext)}></span>
         </div >
         <div>
-          <DialogsList />
+          <DialogsList dialogContext={this.dialogContext} dialogItems={this.state.dialogItems} />
         </div>
       </div >
     );

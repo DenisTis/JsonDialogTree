@@ -27,9 +27,9 @@ export default class Messages extends React.Component {
       listItems.push(
         <li className="list-group-item" key={item.key}>
           <div className="row">
-            <div className="col-sm-1">
+            {/* <div className="col-sm-1">
               <span className={"glyphicon glyphicon-picture"}> </span>
-            </div>
+            </div> */}
             <div className="col-sm-10">
               <span>
                 <label>
@@ -40,7 +40,7 @@ export default class Messages extends React.Component {
                   />
                 </label>
                 <label>
-                  Text<input type="text" name="text" defaultValue={item.text} />
+                  Text<input type="text" name="text" defaultValue={item.textId} />
                 </label>
               </span>
             </div>

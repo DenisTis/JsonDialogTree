@@ -1,9 +1,31 @@
 export default class DialogContext {
   constructor() {
     this.dialogItems = [];
+    this.projectName = "Project";
+    this.selectedItemKey = "";
     this.addItem("First item");
     this.addItem("Second item");
   }
+
+  save() {
+    let serializable = {
+      projectName: this.projectName,
+      selectedItemKey: this.selectedItemKey,
+      dialogItems: this.dialogItems
+    };
+    localStorage.setItem(this.projectName, JSON.stringify(serializable));
+  }
+
+  load() {
+    let serializable = JSON.parse(localStorage.getItem(this.projectName));
+    if (serializable) {
+      this.projectName = serializable.projectName;
+      this.selectedItemKey = serializable.selectedItemKey;
+      this.dialogItems = serializable.dialogItems;
+    }
+  }
+
+
   addItem(item) {
     let newItem = {
       content: item,
@@ -27,6 +49,7 @@ export default class DialogContext {
     for (let i = 0; i < this.dialogItems.length; i++) {
       if (i === key) {
         this.dialogItems[i].isSelected = true;
+        this.selectedItemKey = i;
         continue;
       }
       this.dialogItems[i].isSelected = false;
@@ -34,11 +57,7 @@ export default class DialogContext {
   }
 
   getSelectedKey() {
-    for (let i = 0; i < this.dialogItems.length; i++) {
-      if (this.dialogItems[i].isSelected === true) {
-        return i;
-      }
-    }
+    return this.selectedItemKey;
   }
 
   deleteItem(key) {
@@ -70,15 +89,18 @@ export default class DialogContext {
 
   getMessages() {
     let selectedKey = this.getSelectedKey();
-    if (selectedKey) {
-      return this.dialogItems[selectedKey].messages;
+    if (selectedKey || selectedKey === 0) {
+      if (this.dialogItems[selectedKey] && this.dialogItems[selectedKey].messages) {
+        //TODO - check that selectedKey is always updated after change
+        return this.dialogItems[selectedKey].messages;
+      }
     }
     return [];
   }
 
   addMessage() {
     let selectedKey = this.getSelectedKey();
-    if (selectedKey) {
+    if (selectedKey || selectedKey === 0) {
       let newKey = this.dialogItems[selectedKey].messages.length;
       this.dialogItems[selectedKey].messages.push({ textId: "", key: newKey });
     }
@@ -86,7 +108,7 @@ export default class DialogContext {
 
   resetMessageKeys() {
     let selectedKey = this.getSelectedKey();
-    if (selectedKey) {
+    if (selectedKey || selectedKey === 0) {
       for (let i = 0; i < this.dialogItems[selectedKey].messages.length; i++) {
         this.dialogItems[selectedKey].messages[i].key = i;
       }
@@ -95,7 +117,7 @@ export default class DialogContext {
 
   deleteMessage(key) {
     let selectedKey = this.getSelectedKey();
-    if (selectedKey) {
+    if (selectedKey || selectedKey === 0) {
       this.dialogItems[selectedKey].messages.splice(key, 1);
       this.resetMessageKeys();
     }
