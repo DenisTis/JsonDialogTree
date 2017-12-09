@@ -1,9 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import '../../styles.css';
-import Root from './RootPage.jsx';
-import DialogsList from './DialogsList.jsx';
+import "../../styles.css";
+import Root from "./RootPage.jsx";
+import DialogsList from "./DialogsList.jsx";
 
 export default class SingleProjectPage extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export default class SingleProjectPage extends React.Component {
   }
 
   onKeyPress(event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.changeMode();
     }
   }
@@ -37,10 +37,10 @@ export default class SingleProjectPage extends React.Component {
         </div>
         <div className={"projectHeader"}>
           Project name:
-              {this.state.editMode &&
+          {this.state.editMode &&
             <input type="text" name="name" defaultValue={this.state.projectName}
-            onKeyPress={this.onKeyPress.bind(this)}
-             onChange={this.changeProjectName.bind(this)} />
+              onKeyPress={this.onKeyPress.bind(this)}
+              onChange={this.changeProjectName.bind(this)} />
           }
           {!this.state.editMode &&
             <span className="">{this.state.projectName}</span>

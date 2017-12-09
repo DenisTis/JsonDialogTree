@@ -1,6 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "../../styles.css";
+
+import Messages from "./Messages.jsx";
 
 //State and context should be passed from upper component
 export default class MessageList extends React.Component {
@@ -8,6 +11,13 @@ export default class MessageList extends React.Component {
     super(props);
     this.dialogContext = this.props.dialogContext;
     this.state = { messages: this.props.items };
+  }
+
+  static get propTypes() {
+    return {
+      dialogContext: PropTypes.Object,
+      items: PropTypes.array
+    };
   }
 
   addMessage() {
@@ -45,48 +55,4 @@ export default class MessageList extends React.Component {
       </div>
     );
   }
-}
-
-//Check this example to implement property passing from Parent to Child
-function Messages(props) {
-  const items = props.items;
-  const listItems = [];
-  if (!props.items) {
-    return false;
-  }
-  // let textStyle = {
-  //   "margin-left": "1em"
-  // };
-  for (let item of items) {
-    listItems.push(
-      <li className="list-group-item" key={item.key}>
-        <div className="row">
-          <div className="col-sm-1">
-            <span className={"glyphicon glyphicon-picture"}> </span>
-          </div>
-          <div className="col-sm-10">
-            <span>
-              <label>
-                Character<input
-                  type="text"
-                  name="character"
-                  defaultValue={item.character}
-                />
-              </label>
-              <label>
-                Text<input type="text" name="text" defaultValue={item.text} />
-              </label>
-            </span>
-          </div>
-          <div className="col-sm-1">
-            <span
-              className={"glyphicon glyphicon-minus deleteButton"}
-              onClick={() => props.deleteMessage(item.key)}
-            />
-          </div>
-        </div>
-      </li>
-    );
-  }
-  return <ul className="list-group">{listItems}</ul>;
 }

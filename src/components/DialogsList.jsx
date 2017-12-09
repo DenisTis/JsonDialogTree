@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import '../../styles.css';
+import "../../styles.css";
 
-import MessageList from './MessageList.jsx';
-import ChoiceList from './ChoiceList.jsx';
-import EvaluationList from './EvaluationList.jsx';
-import DialogContext from '../DialogContext.js';
+import MessageList from "./MessageList.jsx";
+import ChoiceList from "./ChoiceList.jsx";
+import EvaluationList from "./EvaluationList.jsx";
+import DialogContext from "../DialogContext.js";
 let dialogContext = new DialogContext();
 
 //It should return list with add and delete buttons
@@ -51,7 +51,7 @@ export default class DialogsList extends React.Component {
   }
 
   updateItem(itemKey, event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       dialogContext.updateItem(itemKey, event.target.value);
       this.changeItemMode(itemKey);
     }
@@ -79,12 +79,12 @@ export default class DialogsList extends React.Component {
         </div>
         {/* middle side of screen */}
         <div className="col-sm-4">
-        <MessageList dialogContext={dialogContext} messages={this.state.messages} />
-        <br></br>
-        <ChoiceList choices={this.state.choices} />
+          <MessageList dialogContext={dialogContext} messages={this.state.messages} />
+          <br></br>
+          <ChoiceList choices={this.state.choices} />
         </div>
         <div className="col-sm-4">
-        <EvaluationList dialogContext={dialogContext} evaluations={this.state.evaluations} />
+          <EvaluationList dialogContext={dialogContext} evaluations={this.state.evaluations} />
         </div>
         
       </div>
@@ -111,7 +111,7 @@ function NumberList(props) {
         <span className={"glyphicon glyphicon-minus deleteButton"} onClick={() => props.deleteItem(item.key)}> </span>
       </li>
     );
-  };
+  }
   return (
     <ul className="list-group" >{listItems}</ul>
   );
