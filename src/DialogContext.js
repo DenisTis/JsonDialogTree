@@ -86,7 +86,8 @@ export default class DialogContext {
     }
     return this.dialogItems;
   }
-
+  //TODO - separate such common logic as for messages and choices into a generic? class
+  //MESSAGES section
   getMessages() {
     let selectedKey = this.getSelectedKey();
     if (selectedKey || selectedKey === 0) {
@@ -128,5 +129,46 @@ export default class DialogContext {
       this.dialogItems[selectedKey].messages[key][property] = value;
     }
   }
+  //CHOICES section
+  getChoices() {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      if (this.dialogItems[selectedKey] && this.dialogItems[selectedKey].choices) {
+        //TODO - check that selectedKey is always updated after change
+        return this.dialogItems[selectedKey].choices;
+      }
+    }
+    return [];
+  }
 
+  addChoice() {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      let newKey = this.dialogItems[selectedKey].choices.length;
+      this.dialogItems[selectedKey].choices.push({ textId: "", isFinal: false, key: newKey });
+    }
+  }
+
+  resetChoiceKeys() {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      for (let i = 0; i < this.dialogItems[selectedKey].choices.length; i++) {
+        this.dialogItems[selectedKey].choices[i].key = i;
+      }
+    }
+  }
+
+  deleteChoice(key) {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      this.dialogItems[selectedKey].choices.splice(key, 1);
+      this.resetChoiceKeys();
+    }
+  }
+  updateChoice(key, property, value) {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      this.dialogItems[selectedKey].choices[key][property] = value;
+    }
+  }
 }

@@ -9,31 +9,35 @@ import "../../styles.css";
 This attribute is only rendered once and does not change at later re-render
 React proposes to use "Controlled component"
  */
-export default class Messages extends React.Component {
+export default class Choices extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messages: props.dialogContext.getMessages() };
+    this.state = { choices: props.dialogContext.getChoices() };
   }
 
   static get propTypes() {
     return {
       dialogContext: PropTypes.object,
-      deleteMessage: PropTypes.func
+      deleteChoice: PropTypes.func
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ messages: nextProps.dialogContext.getMessages() });
+    this.setState({ choices: nextProps.dialogContext.getChoices() });
   }
 
-  updateMessage(event) {
+  updateChoice(event) {
     let dataKey = event.target.attributes["data-key"].value;
-    this.props.dialogContext.updateMessage(dataKey, event.target.name, event.target.value);
-    this.setState({ messages: this.props.dialogContext.getMessages() });
+    if (event.target.type === "checkbox") {
+      this.props.dialogContext.updateChoice(dataKey, event.target.name, event.target.checked);
+    } else {
+      this.props.dialogContext.updateChoice(dataKey, event.target.name, event.target.value);
+    }
+    this.setState({ messages: this.props.dialogContext.getChoices() });
   }
 
   render() {
-    let items = this.props.dialogContext.getMessages();
+    let items = this.props.dialogContext.getChoices();
     let listItems = [];
     if (!items) {
       return false;
@@ -50,17 +54,17 @@ export default class Messages extends React.Component {
             <div className="col-sm-10">
               <span>
                 <label>
-                  Character<input type="text" data-key={item.key} name="character" value={this.state.messages[i].character} onChange={this.updateMessage.bind(this)} />
+                  Final<input type="checkbox" data-key={item.key} name="isFinal" checked={this.state.choices[i].isFinal} onChange={this.updateChoice.bind(this)} />
                 </label>
                 <label>
-                  Text<input type="text" data-key={item.key} name="textId" value={this.state.messages[i].textId} onChange={this.updateMessage.bind(this)} />
+                  Text<input type="text" data-key={item.key} name="textId" value={this.state.choices[i].textId} onChange={this.updateChoice.bind(this)} />
                 </label>
               </span>
             </div>
             <div className="col-sm-1">
               <span
                 className={"glyphicon glyphicon-minus deleteButton"}
-                onClick={() => this.props.deleteMessage(item.key)}
+                onClick={() => this.props.deleteChoice(item.key)}
               />
             </div>
           </div>
