@@ -15,6 +15,7 @@ module.exports = {
   plugins: ["react"],
   rules: {
     "no-console": "warn",
+    "no-warning-comments": [1, { "terms": ["todo"], "location": "anywhere" }],
     indent: ["error", 2],
     "linebreak-style": ["error", "windows"],
     quotes: ["error", "double"],

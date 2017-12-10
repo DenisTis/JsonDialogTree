@@ -62,7 +62,7 @@ export default class DialogsList extends React.Component {
         </div>
         {/* middle side of screen */}
         <div className="col-sm-4">
-          <MessageList dialogContext={this.dialogContext} messages={this.state.messages} />
+          <MessageList dialogContext={this.dialogContext} />
           <br></br>
           <ChoiceList dialogContext={this.dialogContext} choices={this.state.choices} />
         </div>

@@ -102,7 +102,7 @@ export default class DialogContext {
     let selectedKey = this.getSelectedKey();
     if (selectedKey || selectedKey === 0) {
       let newKey = this.dialogItems[selectedKey].messages.length;
-      this.dialogItems[selectedKey].messages.push({ textId: "", key: newKey });
+      this.dialogItems[selectedKey].messages.push({ textId: "", character: "", key: newKey });
     }
   }
 
@@ -122,4 +122,11 @@ export default class DialogContext {
       this.resetMessageKeys();
     }
   }
+  updateMessage(key, property, value) {
+    let selectedKey = this.getSelectedKey();
+    if (selectedKey || selectedKey === 0) {
+      this.dialogItems[selectedKey].messages[key][property] = value;
+    }
+  }
+
 }
